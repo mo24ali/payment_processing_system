@@ -1,17 +1,61 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import org.example.classes.*;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+
+import java.util.Scanner;
+
+public class Main {
+    public static void printMenu(){
+        clearScreen();
+        System.out.println("Choose your payment method : ");
+        System.out.println(" 1)- credit card ");
+        System.out.println(" 2)- Paypal ");
+        System.out.println(" 3)- GooglePay ");
+
+    }
+    public static void clearScreen(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+    }
+    public static void main(String[] args) {
+        int choice;
+        do {
+            printMenu();
+            Scanner sc = new Scanner(System.in);
+            choice = sc.nextInt();
+            Payment payment;
+            double price;
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter the price to pay ");
+                    //sc.nextInt();
+                    price = sc.nextDouble();
+                    payment = new CreditCardPayment();
+                    payment.processPayment(price);
+                    break;
+                case 2:
+                    System.out.println("Enter the price to pay ");
+                    //sc.nextInt();
+                    price = sc.nextDouble();
+                    payment = new PaypalPayment();
+                    payment.processPayment(price);
+                    break;
+                case 3:
+                    System.out.println("Enter the price to pay ");
+                    //sc.nextInt();
+                    price = sc.nextDouble();
+                    payment = new GooglePayPayment();
+                    payment.processPayment(price);
+                    break;
+                default:
+                    System.out.println("Choice doesn't exist you're getting out");
+                    System.exit(0);
+            }
+        } while (choice != 0);
+
+        //System.out.println(choice);
     }
 }
